@@ -14,12 +14,6 @@ module.exports = yeoman.generators.Base.extend({
     this.log(chalk.blue("Welcome to CatamaranHx generator!\n\n'            `--.-+.        `--..--o.               \n           `.---+..``     `------o.               \n           `-.--+. .``.`:/.//:.--o.               \n           `----+ossoyyyyyys/.---o.               \n          ..:oyhysosssssoooooo/:-o.               \n        `.+sooossoo+oos-.:+++++oos:               \n           +ys++oo+++/++/--/ssyoohho-             \n            /yysoo+//+osys/..-/  ./sys/`          \n             -yyyo+oso/-`           ./sy+-        \n              `oyyy:`                  `/ss-      \n                :yys.                     `.      \n                 `oyy:                            \n                   -sy+`                          \n                     :so`                         \n                       -s`                        \n\nCatamaranHX 0.01a by Brendon Smith http://bit.ly/CatamaranHX"));
     
     var prompts = [
-    {
-      type: 'confirm',
-      name: 'hasDeps',
-      message: 'Do you have dependencies already installed (haXe, openFL, SVG, actuate, and Catamaranhx ) ?',
-      default: true
-  },
   {
     name: 'project_title',
     message: 'What is title of your project ?'
@@ -34,107 +28,9 @@ module.exports = yeoman.generators.Base.extend({
 }
 ];
 
-var promptsDeps = [
-{
-  type: 'confirm',
-  name: 'hasHaxe',
-  message: 'Do you have haxe already installed?',
-  default: true
-},{
-    when: function (response) {
-        if(!response.hasHaxe){
-            var hxCheck = exec("which haxe", function (error, stdout, stderr) {
-                      if (error !== null) {
-                        var installHx = exec("npm install -g haxe", function (error, stdout, stderr) {
-                          if (error !== null) {
-                            console.log(error);
-                        }
-                    }); 
-                    }
-                }); 
-        }                 
-    }
-},
-{
-  type: 'confirm',
-  name: 'hasOpenfl',
-  message: 'Do you have openFL already installed?',
-  default: true
-},{
-    when: function (response) {
-        if(!response.hasOpenfl){
-            var hxCheck = exec("which openfl", function (error, stdout, stderr) {
-              if (error !== null) {
-                var installHx = exec("haxe install openfl", function (error, stdout, stderr) {
-                  if (error !== null) {
-                    console.log(error);
-                }
-            }); 
-            }
-        }); 
-        } 
-    }                 
-},
-{
-  type: 'confirm',
-  name: 'hasSvg',
-  message: 'Do you have SVG already installed?',
-  default: true
-},{
-    when: function (response) {
-        if(!response.hasSvg){
-            var installHx = exec("haxe install svg", function (error, stdout, stderr) {
-                if (error !== null) {
-                    console.log(error);
-                }
-            }); 
-        }    
-    }              
-},
-{
-  type: 'confirm',
-  name: 'hasActuate',
-  message: 'Do you have Actuate already installed?',
-  default: true
-},{
-    when: function (response) {
-        if(!response.hasActuate){
-            var installHx = exec("haxe install actuate", function (error, stdout, stderr) {
-                if (error !== null) {
-                    console.log(error);
-                }
-            }); 
-        } 
-    }                 
-},
-
-{
-  type: 'confirm',
-  name: 'hasCatamaran',
-  message: 'Do you have Catamaran already installed?',
-  default: true
-},{
-    when: function (response) {
-        if(!response.hasCatamaran){
-            var installHx = exec("haxelib -notimeout git catamaranhx  https://github.com/catamaranHX/catamaranHX_lib.git", function (error, stdout, stderr) {
-                if (error !== null) {
-                    console.log(error);
-                }
-            }); 
-        }   
-    }              
-},
-]
-
 this.prompt(prompts, function(props) {
     console.log(props.hasDeps);
     this.props = props;
-    if (!props.hasDeps) {
-        this.prompt(promptsDeps, function(err, props) {
-            console.log('in popsDeps');
-            done();
-        }.bind(this));
-    }
     done();
 }.bind(this));
 },
